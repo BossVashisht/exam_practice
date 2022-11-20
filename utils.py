@@ -44,14 +44,14 @@ def pred_image_viz(x_test, predictions):
 # dev to set hyperparameters of the model
 # test to evaluate the performance of the model
 
-def train_dev_test_split(data, label, train_frac, dev_frac):
+def train_dev_test_split(data, label, train_frac, dev_frac,random_state_sent):
 
     dev_test_frac = 1 - train_frac
     x_train, x_dev_test, y_train, y_dev_test = train_test_split(
-        data, label, test_size=dev_test_frac, shuffle=True
+        data, label, test_size=dev_test_frac,random_state = random_state_sent, shuffle=True
     )
     x_test, x_dev, y_test, y_dev = train_test_split(
-        x_dev_test, y_dev_test, test_size=(dev_frac) / dev_test_frac, shuffle=True
+        x_dev_test, y_dev_test, test_size=(dev_frac) / dev_test_frac, random_state = random_state_sent,shuffle=True
     )
 
     return x_train, y_train, x_dev, y_dev, x_test, y_test
@@ -85,8 +85,8 @@ def h_param_tuning(h_param_comb, clf, x_train, y_train, x_dev, y_dev, metric):
             best_metric = cur_metric
             best_model = clf
             best_h_params = cur_h_params
-            print("Found new best metric with :" + str(cur_h_params))
-            print("New best val metric:" + str(cur_metric))
+            #print("Found new best metric with :" + str(cur_h_params))
+            #print("New best val metric:" + str(cur_metric))
     return best_model, best_metric, best_h_params
 
 

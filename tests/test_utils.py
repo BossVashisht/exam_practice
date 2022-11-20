@@ -106,48 +106,11 @@ def test_bias():
     
     assert num_labels != 0 
 
+def test_random_seed_same():
+    pass
 
-def test_all():
-
-    # hyperparameters 
-    train_frac, dev_frac, test_frac = 0.8, 0.1, 0.1
-
-    gamma = 0.001
-    c  = 0.5
-    params = {"gamma" : gamma , "C" : c}
-
-    # dataset
-    digits = datasets.load_digits()
-    data, label = preprocess_digits(digits)
-    # housekeeping
-    del digits
-    
-
-    print("number of labels " , len(label))
-    x_train, y_train, x_dev, y_dev, x_test, y_test = train_dev_test_split(
-        data, label, train_frac, dev_frac
-    )
- 
-    # model
-
-    clf = svm.SVC()
-    clf.set_params(**params)
-    clf.fit(x_train,y_train)
-
-    predicted_dev = clf.predict(x_dev)
-
-    #print(predicted_dev)
-
-    num_labels  = 0
-
-    for i in range(len(predicted_dev)-1):
-        if predicted_dev[i] != predicted_dev[i+1]:
-            num_labels += 1
-
-    print(num_labels)
-
-    assert num_labels == len(label) 
-
+def test_random_seed_diff():
+    pass
 
 # what more test cases should be there
 # irrespective of the changes to the refactored code.
