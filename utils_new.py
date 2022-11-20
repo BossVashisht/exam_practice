@@ -57,10 +57,13 @@ def train_dev_test_split(data, label, train_frac, dev_frac):
     return x_train, y_train, x_dev, y_dev, x_test, y_test
 
 
-def h_param_tuning(h_param_comb, clf, x_train, y_train, x_dev, y_dev, metric):
+def h_param_tuning(h_param_comb, clf, x_train, y_train, x_dev, y_dev, x_test,y_test ,metric):
     best_metric = -1.0
     best_model = None
     best_h_params = None
+    train_accuracy = []
+    dev_accuracy =[]
+    test_accuracy = []
     # 2. For every combination-of-hyper-parameter values
     for cur_h_params in h_param_comb:
 
@@ -75,25 +78,41 @@ def h_param_tuning(h_param_comb, clf, x_train, y_train, x_dev, y_dev, metric):
 
         # print(cur_h_params)
         # PART: get dev set predictions
+        predicted_train = clf.predict(x_train)
+        cur_metric_train = metric(y_pred=predicted_train, y_true=y_train)
+        train_accuracy.append(cur_metric_train)
+
         predicted_dev = clf.predict(x_dev)
-
         # 2.b compute the accuracy on the validation set
-        cur_metric = metric(y_pred=predicted_dev, y_true=y_dev)
+        cur_metric_dev = metric(y_pred=predicted_dev, y_true=y_dev)
+        dev_accuracy.append(cur_metric_dev)
 
+        predicted_test = clf.predict(x_test)
+        # 2.b compute the accuracy on the validation set
+        cur_metric_test = metric(y_pred=predicted_test, y_true=y_test)
+        test_accuracy.append(cur_metric_test)
+        
+        cur_metric = cur_metric_dev
         # 3. identify the combination-of-hyper-parameter for which validation set accuracy is the highest.
         if cur_metric > best_metric:
             best_metric = cur_metric
             best_model = clf
             best_h_params = cur_h_params
-            print("Found new best metric with :" + str(cur_h_params))
-            print("New best val metric:" + str(cur_metric))
-    return best_model, best_metric, best_h_params
+            #print("Found new best metric with :" + str(cur_h_params))
+            #print("New best val metric:" + str(cur_metric))
+    return best_model, best_metric, best_h_params , train_accuracy,dev_accuracy,test_accuracy
 
 
-def tune_and_save(clf, x_train, y_train, x_dev, y_dev, metric, h_param_comb, model_path):
-    best_model, best_metric, best_h_params = h_param_tuning(
-        h_param_comb, clf, x_train, y_train, x_dev, y_dev, metric
+def tune_and_save(clf, x_train, y_train, x_dev, y_dev, x_test, y_test, metric, h_param_comb, model_path):
+    best_model, best_metric, best_h_params,train_accuracy,dev_accuracy,test_accuracy = h_param_tuning(
+        h_param_comb, clf, x_train, y_train, x_dev, y_dev, x_test, y_test,  metric 
     )
+
+    print("train_accuracy is " , train_accuracy)
+    print("  ")
+    print("dev_accuracy is " , dev_accuracy)
+    print("  ")
+    print("test_accuracy is " , test_accuracy)
 
     # save the best_model
     best_param_config = "_".join([h + "=" + str(best_h_params[h]) for h in best_h_params])

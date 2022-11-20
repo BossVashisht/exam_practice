@@ -16,8 +16,8 @@ train_frac, dev_frac, test_frac = 0.8, 0.1, 0.1
 assert train_frac + dev_frac + test_frac == 1.0
 
 # 1. set the ranges of hyper parameters
-gamma_list = [0.01, 0.005, 0.001, 0.0005, 0.0001]
-c_list = [0.1, 0.2, 0.5, 0.7, 1, 2, 5, 7, 10]
+gamma_list = [0.01, 0.005, 0.001]
+c_list = [0.1, 0.2, 0.5, 0.7]
 
 params = {}
 params["gamma"] = gamma_list
@@ -49,13 +49,12 @@ metric = metrics.accuracy_score
 
 
 
-
 actual_model_path = tune_and_save(
-    clf, x_train, y_train, x_dev, y_dev, metric, h_param_comb, model_path=None
+    clf, x_train, y_train, x_dev, y_dev, x_test, y_test ,metric, h_param_comb, model_path=None
 )
 
 
-test_bias()
+#test_bias()
 
 
 # 2. load the best_model
