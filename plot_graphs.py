@@ -78,13 +78,13 @@ actual_model_path = tune_and_save(
 
 
 # 2. load the best_model
-best_model = load(actual_model_path)
+#best_model = load(actual_model_path)
 
 # PART: Get test set predictions
 # Predict the value of the digit on the test subset
-predicted = best_model.predict(x_test)
+#predicted = best_model.predict(x_test)
 
-print(metrics.classification_report(y_test, predicted))
+#print(metrics.classification_report(y_test, predicted))
 
 #pred_image_viz(x_test, predicted)
 

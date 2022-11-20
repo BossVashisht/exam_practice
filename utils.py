@@ -104,8 +104,10 @@ def tune_and_save(clf, x_train, y_train, x_dev, y_dev, metric, h_param_comb, mod
     best_model_name = model_type + "_" + best_param_config + ".joblib"
     txt_name = model_type + "_" + best_param_config + ".txt"
     if model_path == None:
-        model_path = "/home/ankit/sir_repo/exam_practice/models/" + best_model_name
-        txt_path = "/home/ankit/sir_repo/exam_practice/results/" + txt_name
+        #model_path = "/home/ankit/sir_repo/exam_practice/models/" + best_model_name
+        #txt_path = "/home/ankit/sir_repo/exam_practice/results/" + txt_name
+        model_path = "/models/" + best_model_name
+        txt_path = "/results/" + txt_name
     dump(best_model, model_path)
     
     file = open(txt_path,"w")

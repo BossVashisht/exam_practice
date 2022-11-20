@@ -33,20 +33,12 @@ def predict_digit():
     return {"y_predicted":int(predicted[0])}
 
 
-@app.route("/compair", methods=['POST'])
-def compair_images():
+@app.route("/pred", methods=['POST'])
+def model_predic_images():
     image1 = request.json['image1']
-    image2 = request.json['image2']
+    model_name = request.json['model_name']
     print("done loading")
-    prediction_1 = model.predict([image1])
-    prediction_2 = model.predict([image2])
-    if prediction_1 == prediction_2:
-        predicted = [1]
-    else:
-        predicted = [0]
-    if predicted[0] == 1:
-        return {"images are same" :int(predicted[0])}
-    else:
-        return {"images are different" :int(predicted[0])}
+    prediction_1 = str(model_name).predict([image1])
+    return {"prediction of given model is " :int(predicted[0])}
 
     #return {"compaired_result_is":int(predicted[0])}
