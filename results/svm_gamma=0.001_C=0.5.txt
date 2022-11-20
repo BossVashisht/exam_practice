@@ -1,0 +1,2 @@
+test accuracy :0.988950276243094
+model saved at /home/ankit/sir_repo/exam_practice/models/svm_gamma=0.001_C=0.5.joblib

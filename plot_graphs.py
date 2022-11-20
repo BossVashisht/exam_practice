@@ -69,6 +69,7 @@ elif classifier == "tree":
 metric = metrics.accuracy_score
 
 
+
 actual_model_path = tune_and_save(
     clf, x_train, y_train, x_dev, y_dev, metric, h_param_comb, model_path=None
 )
@@ -77,11 +78,13 @@ actual_model_path = tune_and_save(
 
 
 # 2. load the best_model
-#best_model = load(actual_model_path)
+best_model = load(actual_model_path)
 
 # PART: Get test set predictions
 # Predict the value of the digit on the test subset
-#predicted = best_model.predict(x_test)
+predicted = best_model.predict(x_test)
+
+print(metrics.classification_report(y_test, predicted))
 
 #pred_image_viz(x_test, predicted)
 
@@ -92,4 +95,3 @@ actual_model_path = tune_and_save(
 #    f"{metrics.classification_report(y_test, predicted)}\n"
 #)
 
-print("oooo")
