@@ -1,23 +1,7 @@
-# Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# License: BSD 3 clause
-
-
-# PART: library dependencies -- sklear, torch, tensorflow, numpy, transformers
-
-
-### delete 
-
-
-
-###3
-
-
-
-# Import datasets, classifiers and performance metrics
 from sklearn import datasets, svm, metrics
 import pdb
 
-from utils import (
+from utils_new import (
     preprocess_digits,
     train_dev_test_split,
     h_param_tuning,
@@ -62,6 +46,8 @@ x_train, y_train, x_dev, y_dev, x_test, y_test = train_dev_test_split(
 clf = svm.SVC()
 # define the evaluation metric
 metric = metrics.accuracy_score
+
+
 
 
 actual_model_path = tune_and_save(

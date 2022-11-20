@@ -94,7 +94,7 @@ def test_bias():
 
     predicted_dev = clf.predict(x_dev)
 
-    #print(predicted_dev)
+    print(predicted_dev)
 
     num_labels  = 0
 
